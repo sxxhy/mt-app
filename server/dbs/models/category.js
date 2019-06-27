@@ -13,6 +13,8 @@ const Category = new Schema({
     type:Array,
     require:true
   }
+},{
+  collection: 'category' // 指定数据表  可能会在后面自动+s 而读不到数据
 })
 
 module.exports = mongoose.model('Category', Category)
