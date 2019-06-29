@@ -21,6 +21,7 @@
     async mounted () {
       const {status, data: {user}} = await this.$axios.get('/users/getUser')
       if (status === 200) this.user = decodeURIComponent(user)
+      this.$store.commit('setUser',this.user)
     }
   }
 </script>

@@ -9,7 +9,7 @@
         @mouseenter="mouseenter(item.type)">
         <i
           :class="item.type">
-        </i>{{item.name}}<span class="arrow"></span>
+        </i><nuxt-link :to="`search/${item.name}`">{{item.name}}</nuxt-link><span class="arrow"></span>
       </dd>
     </dl>
     <div class="detail"
@@ -20,9 +20,9 @@
         v-for="(item,index) in curdetail">
         <h4
           :key="index">{{item.title}}</h4>
-        <span
+        <a
           v-for="v in item.child"
-          >{{v}}</span>
+          :to="`/search/${v}`">{{v}}</a>
       </template>
     </div>
   </div>

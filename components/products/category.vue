@@ -3,24 +3,28 @@
     <dl class="classic">
       <dt>分类</dt>
       <dt>全部</dt>
-      <dd
-        v-for="(item,idx) in types"
-        :key="idx">
-        <iselect
-          :name="item.type"
-          :list="item.module"/>
-      </dd>
+      <div class="category-content" >
+        <dd
+          v-for="(item,idx) in types"
+          :key="idx">
+          <iselect
+            :name="item.type"
+            :list="item.module"/>
+        </dd>
+      </div>
     </dl>
     <dl class="classic">
       <dt>分类</dt>
       <dt>全部</dt>
-      <dd
-        v-for="(item,idx) in areas"
-        :key="idx">
-        <iselect
-          :name="item.type"
-          :list="item.module"/>
-      </dd>
+      <div class="category-content">
+        <dd
+          v-for="(item,idx) in areas"
+          :key="idx">
+          <iselect
+            :name="item.type"
+            :list="item.module"/>
+        </dd>
+      </div>
     </dl>
   </div>
 </template>
@@ -44,7 +48,7 @@ export default {
         return []
       }
     }
-  },
+  }
 }
 </script>
 
@@ -77,8 +81,13 @@ export default {
       }
     }
     &:nth-child(1){
-      dd{
+      .category-content {
         border-bottom: 1px solid #ddd;
+      }
+    }
+    .category-content{
+      dd{
+        display: inline-block;
       }
     }
   }

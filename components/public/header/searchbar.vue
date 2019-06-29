@@ -1,6 +1,6 @@
 <template>
   <div class="search-panel">
-    <el-row class="m-header-searchbar">
+    <el-row class="m-header-searchbar" :style="{height:$route.name==='index'?'157px':'128px'}">
       <el-col
         :span="3"
         class="left">
@@ -17,25 +17,39 @@
             @focus="focus"
             @blur="blur"
             @input="input"
+            @keydown.13.native="searchProducts"
             placeholder="搜索商家或地点"
             />
-          <button class="el-button el-button--primary"><i class="el-icon-search"></i></button>
+          <button 
+            class="el-button el-button--primary" 
+            @click="searchProducts"><i class="el-icon-search"></i></button>
           <dl
             v-if="isHotPlace && $store.state.home.hotPlace.length"
             class="hotPlace">
             <dt>热门搜索</dt>
-            <dd v-for="(item,index) of $store.state.home.hotPlace.slice(0,5)" :key="index">{{item.name}}</dd>
+            <dd 
+              v-for="(item,index) of $store.state.home.hotPlace.slice(0,5)" 
+              :key="index">{{item.name}}</dd>
           </dl>
           <dl
             v-if="isSearchList"
             class="searchList">
-            <dd v-for="(item,index) of searchList" :key="index">{{item.name}}</dd>
+            <dd 
+              v-for="(item,index) of searchList" 
+              :key="index">
+              <nuxt-link 
+                :to="`/search/${item.editorWord}`">{{item.editorWord}}</nuxt-link></dd>
           </dl>
         </div>
         <p class="suggest">
-          <a href="#" v-for="(item,index) of $store.state.home.hotPlace.slice(0,5)" :key="index">{{item.name}}</a>
+          <a 
+            href="#" 
+            v-for="(item,index) of $store.state.home.hotPlace.slice(0,5)" 
+            :key="index">{{item.name}}</a>
         </p>
-        <ul class="nav">
+        <ul 
+          class="nav" 
+          v-if="$route.name==='index'">
           <li><nuxt-link
             to="/"
             class="takeout">美团外卖</nuxt-link></li>
@@ -97,16 +111,26 @@
       },
       input: _.debounce(async function(){ // 延时
         let self=this;
+        if (!self.search) return
         let city=self.$store.state.geo.position.city.replace('市','')
         self.searchList=[]
-        let {status,data:{top}}=await self.$axios.get('/search/top',{
+        let {status,data:{data:{suggestItems:top}}}=await self.$axios.get('/search/top',{
           params:{
-            name:self.search,
-            city
+            name:self.search
           }
         })
         self.searchList=top.slice(0,10)
-      }, 300)
+      }, 10),
+      searchProducts () {
+        console.log('1')
+        if (!this.search) return
+        this.$router.push({
+          name: 'search-products',
+          params: {
+            products: this.search
+          }
+        })
+      }
     }
   }
 </script>

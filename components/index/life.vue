@@ -8,7 +8,7 @@
         <div class="m-life-pic"/>
       </el-col>
       <el-col :span="6">
-        <div class="m-life-login">
+        <div class="m-life-login" v-show="!$store.state.user">
           <h4><img 
             src="//s0.meituan.net/bs/fe-web-meituan/2d05c2b/img/avatar.jpg" 
             alt=""></h4>
@@ -19,6 +19,39 @@
           <p><nuxt-link to="/login"><el-button 
             round 
             size="medium">立即登录</el-button></nuxt-link></p>
+        </div>
+        <div class="user" v-show="$store.state.user">
+          <div class="info">
+            <i class="el-icon-s-tools"></i>
+            <div class="head-img">
+              <img src="https://s0.meituan.net/bs/fe-web-meituan/e3064a3/img/head-img.png">
+            </div>
+            <div class="name">{{$store.state.user}}</div>
+            <div class="fn-row clearfix">
+              <div class="fn-item">
+                <i class="el-icon-s-order"></i>
+                <p class="fn-name">我的订单</p>
+              </div>
+              <div class="fn-item">
+                <i class="el-icon-star-on"></i>
+                <p class="fn-name">我的收藏</p>
+              </div>
+              <div class="fn-item">
+                <i class="el-icon-s-ticket"></i>
+                <p class="fn-name">抵用券</p>
+              </div>
+            </div>
+            <div class="fn-row clearfix">
+              <div class="fn-item">
+                <i class="el-icon-coin"></i>
+                <p class="fn-name">余额</p>
+              </div>
+              <div class="fn-item">
+                <i class="el-icon-more"></i>
+                <p class="fn-name">更多</p>
+              </div>
+            </div>
+          </div>
         </div>
       </el-col>
     </el-row>

@@ -1,7 +1,7 @@
 <template>
   <div class="m-product-select">
     <dl class="tab">
-      <dt>{{ name }}<i class="el-icon-arrow-down el-icon--right"/></dt>
+      <dt>{{ name }}<i class="el-icon-caret-bottom"/></dt>
       <dd>
         <h3>{{ name }}</h3>
         <span

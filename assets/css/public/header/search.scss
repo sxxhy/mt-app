@@ -74,9 +74,13 @@
               margin-top: 5px;
               cursor: pointer;
 
-              &:hover {
-                background: #F8F8F8;
-                color: #31BBAC;
+              a {
+                color: #666;
+                display: block;
+                &:hover {
+                  background: #F8F8F8;
+                  color: #31BBAC;
+                }
               }
             }
 

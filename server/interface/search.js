@@ -7,25 +7,16 @@ let router = new Router({
 })
 
 router.get('/top',async ctx => {
-  try {
-    let top = await Poi.find({
-      'name': new RegExp(ctx.query.input),
-      city: ctx.query.city
-    })
+  let {status, data:{data}} = await axios.get('https://www.meituan.com/ptapi/suggest', {
+    params: {keyword: ctx.query.name}
+  })
+  if (status===200) {
     ctx.body = {
-      code: 0,
-      top: top.map(item => {
-        return {
-          name: item.name,
-          type: item.type
-        }
-      }),
-      type: top.length ? top[0].type : ''
+      data
     }
-  } catch (e) {
+  } else {
     ctx.body = {
-      code: -1,
-      top: []
+      data: []
     }
   }
 })
@@ -73,6 +64,30 @@ router.get('/resultsByKeywords', async (ctx) => {
     pois: status === 200
       ? data
       : []
+  }
+})
+
+router.get('/keywords',async ctx => {
+  const {limit,cateId,q} = ctx.query
+  let {status, data} = await axios.get('https://apimobile.meituan.com/group/v4/poi/pcsearch/42', {
+    params: {
+      uuid: '7424326d180a428f9d61.1561446567.1.0.0',
+      userid: -1,
+      limit,
+      offset: 0,
+      cateId,
+      q,
+      areaId: -1
+    }
+  })
+  if (status===200) {
+    ctx.body = {
+      data
+    }
+  } else {
+    ctx.body = {
+      data: {}
+    }
   }
 })
 

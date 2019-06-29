@@ -5,7 +5,8 @@
       <dd
         :class="{active:kind===item.tab}"
         :kind="item.tab"
-        v-for="(item,index) of tabs">{{item.text}}</dd>
+        v-for="(item,index) of tabs" 
+        :key="index">{{item.text}}</dd>
     </dl>
     <ul class="ibody" v-if="list.length">
       <li
